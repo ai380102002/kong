@@ -1010,7 +1010,10 @@ local function kong_exec(cmd, env)
   env.lua_package_path = env.lua_package_path .. ";" .. conf.lua_package_path
 
   if not env.custom_plugins then
-    env.custom_plugins = "dummy,cache,rewriter"
+    env.plugins = "bundled,dummy,cache,rewriter"
+  else
+    env.plugins = "bundled," .. env.custom_plugins
+    env.custom_plugins = nil
   end
 
   -- build Kong environment variables
